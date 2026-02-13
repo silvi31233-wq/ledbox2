@@ -383,7 +383,7 @@
       // ✅ 피치별 가능한 조합(단/열)
 function previewImgUrl(pitchId, row, col){
   // 네 파일 규칙: /P6/2단6열.png
-  return `/${pitchId}/${row}단${col}열.png`;
+  return encodeURI(`./${pitchId}/${row}단${col}열.png`);
 }
 
 
