@@ -382,8 +382,16 @@
 
       // ✅ 피치별 가능한 조합(단/열)
 function previewImgUrl(pitchId, row, col){
-  // 네 파일 규칙: /P6/2단6열.png
-  return encodeURI(`./${pitchId}/${row}단${col}열.png`);
+   // 폴더는 실제 폴더명과 같게 (P6/P8/P10)
+  const file = `${row}단${col}열.png`;
+
+  // 페이지 URL 기준으로 상대 경로 생성 (프로젝트 페이지 prefix 자동 처리됨)
+  const url = new URL(`${pitchId}/${file}`, document.baseURI);
+
+  // 한글 파일명 안전 처리: pathname만 인코딩
+  url.pathname = url.pathname.split('/').map(seg => encodeURIComponent(seg)).join('/').replace(/%2F/g, '/');
+
+  return url.toString();
 }
 
 
